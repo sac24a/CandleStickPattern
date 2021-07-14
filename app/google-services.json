@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "939122745805",
+    "firebase_url": "https://candlestick-pattern-1cf8f.firebaseio.com",
+    "project_id": "candlestick-pattern-1cf8f",
+    "storage_bucket": "candlestick-pattern-1cf8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939122745805:android:74d8b9ab09307316b4e484",
+        "android_client_info": {
+          "package_name": "com.realvsvetrual.candlestickpattern"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939122745805-3qcfs3j9gpv2df285gtiha1i7vdhohj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.realvsvetrual.candlestickpattern",
+            "certificate_hash": "bdaeebccf3bd0babfdcd206d77ab4961b5c262f0"
+          }
+        },
+        {
+          "client_id": "939122745805-kudtv0hkh35hmtapa3lbmc9nn41sshbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7dcIdoeOHIVHXyi63gtVByAFZFpj9cso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939122745805-kudtv0hkh35hmtapa3lbmc9nn41sshbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

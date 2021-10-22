@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyAdSize;
@@ -22,6 +23,10 @@ import com.adcolony.sdk.AdColonyAdView;
 import com.adcolony.sdk.AdColonyAdViewListener;
 import com.adcolony.sdk.AdColonyInterstitial;
 import com.adcolony.sdk.AdColonyInterstitialListener;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -32,6 +37,9 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -167,8 +175,7 @@ public class Fullscreen extends AppCompatActivity  {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     if (position == newurl.size()-1) {
-
-                        setupInteretialAds();
+                        checkAds();
                     }
                 }
 
@@ -189,6 +196,49 @@ public class Fullscreen extends AppCompatActivity  {
         }
         catch (IllegalArgumentException e) {
             Log.d("Error", "onCreate: "+e);
+
+        }
+
+    }
+    public void checkAds(){
+
+        try {
+            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            Log.e("Response", url);
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>(){
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.e("Responselogin", response);
+                            try {
+
+                                JSONArray jsonObject = new JSONArray(response);
+                                String version = jsonObject.getJSONObject(0).getString("ads");
+//                                progressBar.setVisibility(View.GONE);
+                                if (version.equals("1")){
+                                    setupInteretialAds();
+//                                    showNativeAds();
+                                }
+
+                            }
+                            catch (JSONException e) {
+
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    }
+            ) ;
+            Mysingleton.getInstance(getApplicationContext()).addToRequestque(postRequest);
+
+
+
+        }
+        catch (NullPointerException e) {
 
         }
 

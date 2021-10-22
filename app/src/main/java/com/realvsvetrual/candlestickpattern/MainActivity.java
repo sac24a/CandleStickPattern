@@ -36,6 +36,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.datatransport.BuildConfig;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        showNativeAds();
+//        showNativeAds();
 //        setupInteretialAds();
 //        Intent alarmIntent = new Intent(MainActivity.this, MyReceiver.class);
 //        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
@@ -370,12 +371,61 @@ public class MainActivity extends AppCompatActivity {
         });
 
         checkVersion();
+    }
 
+    public void checkAds(){
+
+        try {
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            Log.e("Response", url);
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>(){
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.e("Responselogin", response);
+                            try {
+
+                                JSONArray jsonObject = new JSONArray(response);
+                                String version = jsonObject.getJSONObject(0).getString("ads");
+                                progressBar.setVisibility(View.GONE);
+                                if (version.equals("1")){
+                                    setupInteretialAds();
+                                    showNativeAds();
+                                }
+                            }
+                            catch (JSONException e) {
+                                Toast.makeText(MainActivity.this,"Some error",Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+//                                Log.e("volley_error", error.toString());
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+            ) ;
+            Mysingleton.getInstance(getApplicationContext()).addToRequestque(postRequest);
+
+
+
+        }
+        catch (NullPointerException e) {
+            Toast.makeText(MainActivity.this,"Some fields are missing",Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+        }
 
     }
 
     public void checkVersion(){
-        final String currentVersion = "4";
+        final String currentVersion = "5";
         try {
 
             progressBar.setVisibility(View.VISIBLE);
@@ -649,7 +699,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
         isAdLoaded = false;
-        setupInteretialAds();
+        checkAds();
     }
 
     @Override

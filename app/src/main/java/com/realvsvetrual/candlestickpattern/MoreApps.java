@@ -97,7 +97,10 @@ public class MoreApps extends AppCompatActivity {
                 }
             }
         });
-
+        checkAds();
+        getMoreApps();
+    }
+    public void loadAds() {
         String nativead1 = "ca-app-pub-2800990351363646/6252263569";
         adLoader = new AdLoader.Builder(this, nativead1)
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
@@ -108,9 +111,6 @@ public class MoreApps extends AppCompatActivity {
                         adLoaded = true;
                         showNativeAd();
                     }
-
-
-
                 })
                 .withAdListener(new AdListener() {
                     @Override
@@ -127,8 +127,6 @@ public class MoreApps extends AppCompatActivity {
 
         // load Native Ad with the Request
         adLoader.loadAd(adRequest) ;
-
-        getMoreApps();
     }
     private void showNativeAd()
     {
@@ -139,6 +137,49 @@ public class MoreApps extends AppCompatActivity {
                 gridView.setAdapter(gridAdapter);
 
             }
+        }
+
+    }
+
+    public void checkAds(){
+
+        try {
+            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            Log.e("Response", url);
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>(){
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.e("Responselogin", response);
+                            try {
+
+                                JSONArray jsonObject = new JSONArray(response);
+                                String version = jsonObject.getJSONObject(0).getString("ads");
+//                                progressBar.setVisibility(View.GONE);
+                                if (version.equals("1")){
+                                    loadAds();
+                                }
+
+                            }
+                            catch (JSONException e) {
+
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    }
+            ) ;
+            Mysingleton.getInstance(getApplicationContext()).addToRequestque(postRequest);
+
+
+
+        }
+        catch (NullPointerException e) {
+
         }
 
     }

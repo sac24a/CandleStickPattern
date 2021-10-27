@@ -79,7 +79,6 @@ public class Fullscreen extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-
         setContentView(R.layout.activity_fullscreen);
         progress=new ProgressDialog(this);
         AdColony.configure(this, "app47fea0a828e840d88e", "vz5df7ed99ca8247f190");

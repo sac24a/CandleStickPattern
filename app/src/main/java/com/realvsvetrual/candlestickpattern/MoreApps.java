@@ -62,12 +62,6 @@ public class MoreApps extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_more_apps);
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
         moreAppData = new ArrayList<>();
         gridView = findViewById(R.id.moreappsGrid);
         progressBar = findViewById(R.id.progressBar);
@@ -158,6 +152,11 @@ public class MoreApps extends AppCompatActivity {
                                 String version = jsonObject.getJSONObject(0).getString("ads");
 //                                progressBar.setVisibility(View.GONE);
                                 if (version.equals("1")){
+                                    MobileAds.initialize(MoreApps.this, new OnInitializationCompleteListener() {
+                                        @Override
+                                        public void onInitializationComplete(InitializationStatus initializationStatus) {
+                                        }
+                                    });
                                     loadAds();
                                 }
 

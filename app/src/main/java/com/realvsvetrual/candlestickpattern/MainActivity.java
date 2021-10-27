@@ -68,7 +68,7 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    String currentVersion = "6";
     Button intro;
     Button exerciseButton;
     Button tradingButton;
@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-
         setContentView(R.layout.activity_main);
         AdColony.configure(this, "app47fea0a828e840d88e", "vzf29313b26d21486ea5");
         AdColonyInterstitialListener listener = new AdColonyInterstitialListener() {
@@ -199,20 +198,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         AdColony.requestInterstitial("vzf29313b26d21486ea5", listener);
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-//        showNativeAds();
-//        setupInteretialAds();
-//        Intent alarmIntent = new Intent(MainActivity.this, MyReceiver.class);
-//        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
-//        startAlarm();
-
-
-
         intro = findViewById(R.id.introduction);
         patternButton = findViewById(R.id.candlepattern);
         tradingButton = findViewById(R.id.trading);
@@ -393,8 +378,14 @@ public class MainActivity extends AppCompatActivity {
                                 String version = jsonObject.getJSONObject(0).getString("ads");
                                 progressBar.setVisibility(View.GONE);
                                 if (version.equals("1")){
+                                    MobileAds.initialize(MainActivity.this, new OnInitializationCompleteListener() {
+                                        @Override
+                                        public void onInitializationComplete(InitializationStatus initializationStatus) {
+                                        }
+                                    });
                                     setupInteretialAds();
                                     showNativeAds();
+
                                 }
                             }
                             catch (JSONException e) {
@@ -425,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkVersion(){
-        final String currentVersion = "5";
+
         try {
 
             progressBar.setVisibility(View.VISIBLE);
@@ -483,9 +474,6 @@ public class MainActivity extends AppCompatActivity {
                     }
             ) ;
             Mysingleton.getInstance(getApplicationContext()).addToRequestque(postRequest);
-
-
-
         }
         catch (NullPointerException e) {
             Toast.makeText(MainActivity.this,"Some fields are missing",Toast.LENGTH_SHORT).show();

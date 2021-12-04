@@ -229,6 +229,23 @@
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:id="@+id/ipo"
+                android:text="IPO"
+                android:textAlignment="textStart"
+                android:layout_gravity="start"
+                android:background="#FFFFFF"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:textSize="22dp"
+                android:textColor="#14821A"
+                android:drawableLeft="@drawable/candlestick"
+
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:id="@+id/tutorial"
                 android:text="Tutorial"
                 android:textAlignment="textStart"

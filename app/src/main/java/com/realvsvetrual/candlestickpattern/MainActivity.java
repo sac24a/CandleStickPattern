@@ -68,7 +68,7 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    String currentVersion = "6";
+    String currentVersion = "7";
     Button intro;
     Button exerciseButton;
     Button tradingButton;
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     Button insideButton;
     Button patternButton;
     Button reload;
+    Button ipo;
 
     ArrayList<String> urls;
     ProgressBar progressBar ;
@@ -205,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         insideButton = findViewById(R.id.inside);
         exerciseButton = findViewById(R.id.exercise);
         reload= findViewById(R.id.reload);
+        ipo = findViewById(R.id.ipo);
         progressBar = findViewById(R.id.progressBar);
         urls = new ArrayList<>();
 
@@ -218,6 +220,18 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(MainActivity.this,"Internet is required to access content.",Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+        ipo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ButtonType = "ipo";
+                if (isAdLoaded) {
+                    mInterstitialAd.show(MainActivity.this);
+                }
+                else {
+                    moveToNext();
                 }
             }
         });
@@ -646,6 +660,14 @@ public class MainActivity extends AppCompatActivity {
         else if (ButtonType.equals("more")){
             try {
                 Intent intent = new Intent(MainActivity.this,MoreApps.class);
+                startActivity(intent);
+            } catch(Exception e) {
+                //e.toString();
+            }
+        }
+        else if (ButtonType.equals("ipo")){
+            try {
+                Intent intent = new Intent(MainActivity.this,NewsList.class);
                 startActivity(intent);
             } catch(Exception e) {
                 //e.toString();

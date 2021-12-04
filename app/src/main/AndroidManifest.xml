@@ -7,19 +7,22 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.realvsvetrual.candlestickpattern.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true">
-
-
-
-        <activity android:name=".MoreApps"></activity>
+        <activity
+            android:name=".Detail"
+            android:exported="true" />
+        <activity
+            android:name=".NewsList"
+            android:exported="true" />
+        <activity android:name=".MoreApps" />
         <activity android:name=".Fullscreen" />
         <activity android:name=".Zoom" />
         <activity android:name=".Display" />
@@ -39,6 +42,7 @@
             android:name=".MyReceiver"
             android:enabled="true"
             android:exported="false" />
+
         <service
             android:name=".MyNewIntentService"
             android:exported="false" />

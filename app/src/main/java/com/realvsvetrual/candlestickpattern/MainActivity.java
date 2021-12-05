@@ -68,7 +68,7 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    String currentVersion = "7";
+    String currentVersion = "8";
     Button intro;
     Button exerciseButton;
     Button tradingButton;

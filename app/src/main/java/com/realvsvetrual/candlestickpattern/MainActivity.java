@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -22,13 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.adcolony.sdk.AdColony;
-import com.adcolony.sdk.AdColonyAdSize;
-import com.adcolony.sdk.AdColonyAdView;
-import com.adcolony.sdk.AdColonyAdViewListener;
-import com.adcolony.sdk.AdColonyInterstitial;
-import com.adcolony.sdk.AdColonyInterstitialListener;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -46,6 +40,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -53,6 +48,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.firebase.FirebaseApp;
 
 import org.json.JSONArray;
@@ -80,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> urls;
     ProgressBar progressBar ;
+    private RewardedAd mRewardedAd;
 
 //    AlarmManager manager;
 //    PendingIntent pendingIntent;
@@ -95,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     TemplateView template1;
     TemplateView template2;
     String message = "Please check for update.";
+    String adType = "";
     private void showNativeAd()
     {
         if ( adLoaded )
@@ -190,15 +190,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_main);
-        AdColony.configure(this, "app47fea0a828e840d88e", "vzf29313b26d21486ea5");
-        AdColonyInterstitialListener listener = new AdColonyInterstitialListener() {
-            @Override
-            public void onRequestFilled(AdColonyInterstitial ad) {
-                /** Store and use this ad object to show your ad when appropriate */
-                ad.show();
-            }
-        };
-        AdColony.requestInterstitial("vzf29313b26d21486ea5", listener);
         intro = findViewById(R.id.introduction);
         patternButton = findViewById(R.id.candlepattern);
         tradingButton = findViewById(R.id.trading);
@@ -228,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ButtonType = "ipo";
                 if (isAdLoaded) {
-                    mInterstitialAd.show(MainActivity.this);
+                    showAds();
                 }
                 else {
                     moveToNext();
@@ -251,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ButtonType = "intro";
                 if (isAdLoaded) {
-                    mInterstitialAd.show(MainActivity.this);
+                    showAds();
                 }
                 else {
                     moveToNext();
@@ -268,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ButtonType = "pattern";
                 if (isAdLoaded) {
-                    mInterstitialAd.show(MainActivity.this);
+                    showAds();
                 }
                 else {
                     moveToNext();
@@ -284,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ButtonType = "exercise";
                 if (isAdLoaded) {
-                    mInterstitialAd.show(MainActivity.this);
+                    showAds();
                 }
                 else {
                     moveToNext();
@@ -300,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ButtonType = "trading";
                 if (isAdLoaded) {
-                    mInterstitialAd.show(MainActivity.this);
+                    showAds();
                 }
                 else {
                     moveToNext();
@@ -315,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ButtonType = "engulf";
                 if (isAdLoaded) {
-                    mInterstitialAd.show(MainActivity.this);
+                    showAds();
                 }
                 else {
                     moveToNext();
@@ -330,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ButtonType = "inside";
                 if (isAdLoaded) {
-                    mInterstitialAd.show(MainActivity.this);
+                    showAds();
                 }
                 else {
                     moveToNext();
@@ -371,7 +362,20 @@ public class MainActivity extends AppCompatActivity {
 
         checkVersion();
     }
-
+    public void showAds (){
+        if (adType.equals("1")) {
+            mInterstitialAd.show(MainActivity.this);
+        }
+        else if (adType.equals("2")) {
+            showRewardedVideo();
+        }
+        else if(adType.equals("3")) {
+            mInterstitialAd.show(MainActivity.this);
+        }
+        else if(adType.equals("4")) {
+            showRewardedVideo();
+        }
+    }
     public void checkAds(){
 
         try {
@@ -391,6 +395,7 @@ public class MainActivity extends AppCompatActivity {
                                 JSONArray jsonObject = new JSONArray(response);
                                 String version = jsonObject.getJSONObject(0).getString("ads");
                                 progressBar.setVisibility(View.GONE);
+                                adType = version;
                                 if (version.equals("1")){
                                     MobileAds.initialize(MainActivity.this, new OnInitializationCompleteListener() {
                                         @Override
@@ -398,8 +403,27 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                                     setupInteretialAds();
-                                    showNativeAds();
+//                                    showNativeAds();
+//                                    readyVideoAds();
 
+                                }
+                                else if (version.equals("2")) {
+                                    MobileAds.initialize(MainActivity.this, new OnInitializationCompleteListener() {
+                                        @Override
+                                        public void onInitializationComplete(InitializationStatus initializationStatus) {
+                                        }
+                                    });
+//                                    setupInteretialAds();
+                                    showNativeAds();
+                                    readyVideoAds();
+                                }
+                                else if(version.equals("3")) {
+                                    showNativeAds();
+                                    setupInteretialAds();
+                                }
+                                else if(version.equals("4")) {
+                                    showNativeAds();
+                                    readyVideoAds();
                                 }
                             }
                             catch (JSONException e) {
@@ -428,7 +452,95 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public void readyVideoAds(){
+        if (mRewardedAd == null) {
+//            isLoading = true;
+            AdRequest adRequest = new AdRequest.Builder().build();
+            RewardedAd.load(
+                    this,
+                    "ca-app-pub-2800990351363646/3885471827",
+                    adRequest,
+                    new RewardedAdLoadCallback() {
+                        @Override
+                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                            // Handle the error.
+                            Log.d("TAG", loadAdError.getMessage());
+                            mRewardedAd = null;
+                            isAdLoaded = false;
+//                            MainActivity.this.isLoading = false;
+//                            Toast.makeText(MainActivity.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+                        }
 
+                        @Override
+                        public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                            MainActivity.this.mRewardedAd = rewardedAd;
+                            isAdLoaded = true;
+                            Log.d("TAG", "onAdLoaded");
+//                            MainActivity.this.isLoading = false;
+//                            Toast.makeText(MainActivity.this, "onAdLoaded", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+    private void showRewardedVideo() {
+
+        if (mRewardedAd == null) {
+            Log.d("TAG", "The rewarded ad wasn't ready yet.");
+            return;
+        }
+//        showVideoButton.setVisibility(View.INVISIBLE);
+
+        mRewardedAd.setFullScreenContentCallback(
+                new FullScreenContentCallback() {
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        // Called when ad is shown.
+                        Log.d("TAG", "onAdShowedFullScreenContent");
+//                        Toast.makeText(MainActivity.this, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT)
+//                                .show();
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                        // Called when ad fails to show.
+                        Log.d("TAG", "onAdFailedToShowFullScreenContent");
+                        // Don't forget to set the ad reference to null so you
+                        // don't show the ad a second time.
+                        mRewardedAd = null;
+//                        Toast.makeText(
+//                                MainActivity.this, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT)
+//                                .show();
+                        moveToNext();
+                    }
+
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        // Called when ad is dismissed.
+                        // Don't forget to set the ad reference to null so you
+                        // don't show the ad a second time.
+                        mRewardedAd = null;
+                        Log.d("TAG", "onAdDismissedFullScreenContent");
+//                        Toast.makeText(MainActivity.this, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT)
+//                                .show();
+                        // Preload the next rewarded ad.
+                        MainActivity.this.readyVideoAds();
+                        moveToNext();
+
+                    }
+                });
+        Activity activityContext = MainActivity.this;
+        mRewardedAd.show(
+                activityContext,
+                new OnUserEarnedRewardListener() {
+                    @Override
+                    public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                        // Handle the reward.
+                        Log.d("TAG", "The user earned the reward."+rewardItem.getAmount());
+                        int rewardAmount = rewardItem.getAmount();
+                        String rewardType = rewardItem.getType();
+                    }
+                });
+    }
     public void checkVersion(){
 
         try {

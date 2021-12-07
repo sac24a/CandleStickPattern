@@ -22,11 +22,16 @@
         <activity
             android:name=".NewsList"
             android:exported="true" />
-        <activity android:name=".MoreApps" />
-        <activity android:name=".Fullscreen" />
-        <activity android:name=".Zoom" />
-        <activity android:name=".Display" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MoreApps"
+            android:exported="true"/>
+        <activity android:name=".Fullscreen"
+            android:exported="true"/>
+        <activity android:name=".Zoom"
+            android:exported="true"/>
+        <activity android:name=".Display"
+            android:exported="true"/>
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +51,8 @@
         <service
             android:name=".MyNewIntentService"
             android:exported="false" />
-        <service android:name=".FCM">
+        <service android:name=".FCM"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

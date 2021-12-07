@@ -17,12 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adcolony.sdk.AdColony;
-import com.adcolony.sdk.AdColonyAdSize;
-import com.adcolony.sdk.AdColonyAdView;
-import com.adcolony.sdk.AdColonyAdViewListener;
-import com.adcolony.sdk.AdColonyInterstitial;
-import com.adcolony.sdk.AdColonyInterstitialListener;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -81,19 +76,6 @@ public class Fullscreen extends AppCompatActivity  {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_fullscreen);
         progress=new ProgressDialog(this);
-        AdColony.configure(this, "app47fea0a828e840d88e", "vz5df7ed99ca8247f190");
-        AdColonyInterstitialListener listener = new AdColonyInterstitialListener() {
-            @Override
-            public void onRequestFilled(AdColonyInterstitial ad) {
-                /** Store and use this ad object to show your ad when appropriate */
-                ad.show();
-            }
-        };
-
-        AdColony.requestInterstitial("vz5df7ed99ca8247f190", listener);
-
-//        setupInteretialAds();
-
         Button leftButton = findViewById(R.id.leftButton);
         Button rightButton = findViewById(R.id.rightButton);
 

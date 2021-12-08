@@ -66,7 +66,7 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    String currentVersion = "8";
+    String currentVersion = "9";
     Button intro;
     Button exerciseButton;
     Button tradingButton;
@@ -468,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
                             mRewardedAd = null;
                             isAdLoaded = false;
 //                            MainActivity.this.isLoading = false;
-//                            Toast.makeText(MainActivity.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -477,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
                             isAdLoaded = true;
                             Log.d("TAG", "onAdLoaded");
 //                            MainActivity.this.isLoading = false;
-//                            Toast.makeText(MainActivity.this, "onAdLoaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "onAdLoaded", Toast.LENGTH_SHORT).show();
                         }
                     });
         }

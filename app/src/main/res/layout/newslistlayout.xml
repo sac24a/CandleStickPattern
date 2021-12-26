@@ -8,14 +8,16 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Want to know about candlestick"
         android:textColor="#000000"
         android:textSize="16dp"
-        android:translationZ="10dp" />
+        android:translationZ="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"/>
 
     <Button
         android:id="@+id/share"
@@ -24,6 +26,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
-        android:background="@drawable/share" />
+        android:background="@drawable/share"
+        android:visibility="gone"/>
 
 </RelativeLayout>

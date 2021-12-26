@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/header"
+        android:translationZ="10dp"
+        android:background="#ffffff"
+        >
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/moreappLay"
+            android:visibility="visible">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/moreapps"
+                android:layout_centerInParent="true"
+                android:backgroundTint="#14821A"
+                />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/moreApps"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_header"
+            android:text="Candlestick Chart Guide"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="#DF441A"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/moreappLay"
+            android:layout_toLeftOf="@id/reload"
+
+            />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/reload"
+            android:layout_centerVertical="true"
+            android:background="@drawable/reload"
+            android:backgroundTint="#DF441A"
+            android:layout_toLeftOf="@id/share"
+            />
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/share"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/share"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/switchToNewApp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/header"
+        android:background="@null"
+        android:text="Switch to Old App"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/switchToNewApp"
+        android:id="@+id/listView"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/progressBar">
+
+    </ProgressBar>
+
+
+</RelativeLayout>

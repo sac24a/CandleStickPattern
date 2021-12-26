@@ -13,9 +13,7 @@
         android:id="@+id/header"
         android:translationZ="10dp"
         android:background="#ffffff"
-
         >
-
         <RelativeLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -100,65 +98,123 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"/>
-            <Button
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/introduction"
-                android:text="Introduction"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:background="#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:textAllCaps="false"
-                android:textSize="22dp"
-                android:textColor="#14821A"
-                android:drawableLeft="@drawable/candlestick"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                />
+                    <Button
+                        android:id="@+id/introduction"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="start"
+                        android:background="#FFFFFF"
+                        android:drawableLeft="@drawable/candlestick"
+                        android:text="Introduction"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="#14821A"
+                        android:textSize="22dp" />
+                </RelativeLayout>
 
-
-            <Button
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/lock"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/candlepattern"
-                android:text="Candlestick Pattern"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:background="#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:textAllCaps="false"
-                android:textSize="22dp"
-                android:textColor="#14821A"
-                android:drawableLeft="@drawable/candlestick"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                />
+                    <Button
+                        android:id="@+id/candlepattern"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="start"
+                        android:background="#FFFFFF"
+                        android:drawableLeft="@drawable/candlestick"
+                        android:text="Candlestick Pattern"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="#14821A"
+                        android:textSize="22dp"
+
+                        />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/lock"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/patternLockImage"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/ad_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_centerHorizontal="true"/>
-            <Button
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/exercise"
-                android:text="Candlestick Pattern Exercise"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:background="#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:textAllCaps="false"
-                android:textSize="22dp"
-                android:textColor="#14821A"
-                android:drawableLeft="@drawable/candlestick"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                />
+                    <Button
+                        android:id="@+id/exercise"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="start"
+                        android:background="#FFFFFF"
+                        android:drawableLeft="@drawable/candlestick"
+                        android:text="Candlestick Pattern Exercise"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="#14821A"
+                        android:textSize="22dp"
+                        />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/lock"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/exerciseLockImage"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
+
 
 
             <com.google.android.ads.nativetemplates.TemplateView
@@ -171,59 +227,113 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
                 />
-            <Button
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/trading"
-                android:text="Trading Exercise"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:background="#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:textAllCaps="false"
-                android:textSize="22dp"
-                android:textColor="#14821A"
-                android:drawableLeft="@drawable/candlestick"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                />
+                    <Button
+                        android:id="@+id/trading"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="start"
+                        android:background="#FFFFFF"
+                        android:drawableLeft="@drawable/candlestick"
+                        android:text="Trading Exercise"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="#14821A"
+                        android:textSize="22dp" />
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/lock"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/tradingLockImage"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
 
-            <Button
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/engulfing"
-                android:text="Engulfing Bar"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:background="#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:textAllCaps="false"
-                android:textSize="22dp"
-                android:textColor="#14821A"
-                android:drawableLeft="@drawable/candlestick"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                />
+                    <Button
+                        android:id="@+id/engulfing"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="start"
+                        android:background="#FFFFFF"
+                        android:drawableLeft="@drawable/candlestick"
+                        android:text="Engulfing Bar"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="#14821A"
+                        android:textSize="22dp" />
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/lock"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/engulfingLockImage"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
 
-            <Button
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/inside"
-                android:text="The Inside Bar"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:background="#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:textAllCaps="false"
-                android:textSize="22dp"
-                android:textColor="#14821A"
-                android:drawableLeft="@drawable/candlestick"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                />
+                    <Button
+                        android:id="@+id/inside"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="start"
+                        android:background="#FFFFFF"
+                        android:drawableLeft="@drawable/candlestick"
+                        android:text="The Inside Bar"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="#14821A"
+                        android:textSize="22dp"
+
+                        />
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/lock"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/insideLockImage"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

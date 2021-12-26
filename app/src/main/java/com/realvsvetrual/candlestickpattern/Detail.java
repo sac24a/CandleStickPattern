@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -32,6 +33,9 @@ public class Detail extends AppCompatActivity {
         titleView.setText(intent.getStringExtra("title"));
 //        webView.loadData(intent.getStringExtra("data"),"text/html",null);
         webView.getSettings().setJavaScriptEnabled(true);
+//        webView.setWebChromeClient(new WebChromeClient());
+        String DESKTOP_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36";
+        webView.getSettings().setUserAgentString(DESKTOP_USER_AGENT);
         webView.setWebViewClient(new WebViewClient() {
             @SuppressWarnings("deprecation")
             @Override

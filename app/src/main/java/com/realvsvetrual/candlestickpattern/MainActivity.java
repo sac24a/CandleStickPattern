@@ -11,10 +11,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -61,6 +63,8 @@ import org.json.JSONObject;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
     Button patternButton;
     Button reload;
     Button ipo;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     ArrayList<String> urls;
     ProgressBar progressBar ;
@@ -200,7 +206,9 @@ public class MainActivity extends AppCompatActivity {
         ipo = findViewById(R.id.ipo);
         progressBar = findViewById(R.id.progressBar);
         urls = new ArrayList<>();
-
+        sp = getSharedPreferences("date", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        saveDate();
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,16 +255,11 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     moveToNext();
                 }
-
-
-
-
             }
         });
         patternButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ButtonType = "pattern";
                 if (isAdLoaded) {
                     showAds();
@@ -264,9 +267,6 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     moveToNext();
                 }
-
-
-
             }
         });
         exerciseButton.setOnClickListener(new View.OnClickListener() {
@@ -362,6 +362,11 @@ public class MainActivity extends AppCompatActivity {
 
         checkVersion();
     }
+    public void saveDate() {
+        String dateString = DateFormat.format("MM/dd/yyyy", new Date((new Date()).getTime())).toString();
+        editor.putString("today", dateString);
+        editor.commit();
+    }
     public void showAds (){
         if (adType.equals("1")) {
             mInterstitialAd.show(MainActivity.this);
@@ -442,9 +447,6 @@ public class MainActivity extends AppCompatActivity {
                     }
             ) ;
             Mysingleton.getInstance(getApplicationContext()).addToRequestque(postRequest);
-
-
-
         }
         catch (NullPointerException e) {
             Toast.makeText(MainActivity.this,"Some fields are missing",Toast.LENGTH_SHORT).show();
@@ -468,7 +470,7 @@ public class MainActivity extends AppCompatActivity {
                             mRewardedAd = null;
                             isAdLoaded = false;
 //                            MainActivity.this.isLoading = false;
-                            Toast.makeText(MainActivity.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -477,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
                             isAdLoaded = true;
                             Log.d("TAG", "onAdLoaded");
 //                            MainActivity.this.isLoading = false;
-                            Toast.makeText(MainActivity.this, "onAdLoaded", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "onAdLoaded", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -495,7 +497,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAdShowedFullScreenContent() {
                         // Called when ad is shown.
-                        Log.d("TAG", "onAdShowedFullScreenContent");
+//                        Log.d("TAG", "onAdShowedFullScreenContent");
 //                        Toast.makeText(MainActivity.this, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT)
 //                                .show();
                     }
@@ -503,7 +505,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAdFailedToShowFullScreenContent(AdError adError) {
                         // Called when ad fails to show.
-                        Log.d("TAG", "onAdFailedToShowFullScreenContent");
+//                        Log.d("TAG", "onAdFailedToShowFullScreenContent");
                         // Don't forget to set the ad reference to null so you
                         // don't show the ad a second time.
                         mRewardedAd = null;
@@ -540,6 +542,23 @@ public class MainActivity extends AppCompatActivity {
                         String rewardType = rewardItem.getType();
                     }
                 });
+    }
+    private void showVideoAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setCancelable(false);
+        builder.setTitle("Candlesticks Chart Guide");
+        builder.setMessage("Watch Video to unlock")
+                .setPositiveButton("View", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (adType.equals("2")) {
+                            showRewardedVideo();
+                        }
+                    }
+                });
+
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
     }
     public void checkVersion(){
 

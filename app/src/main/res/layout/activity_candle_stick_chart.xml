@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CandleStickChartActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/header"
+        android:background="@color/white"
+        android:translationZ="10dp"
+        >
+        <Button
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back"
+            android:backgroundTint="@color/green"
+            android:gravity="start|center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/trade"
+            android:background="@null"
+            android:text="Profit/Loss"
+            android:gravity="end|center_vertical"
+            android:layout_alignParentRight="true"
+            android:paddingEnd="10dp"
+            android:textColor="@color/green"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Paper Trading"
+            android:textColor="@color/red"
+            android:textSize="20dp"
+            />
+
+    </RelativeLayout>
+
+    <com.github.mikephil.charting.charts.CandleStickChart
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/nextCandle"
+        android:layout_below="@id/header" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toLeftOf="@+id/tvYMax"
+        android:max="200"
+        android:paddingBottom="12dp"
+        android:visibility="gone"/>
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/seekBar2"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="35dp"
+        android:layout_toLeftOf="@+id/tvXMax"
+        android:layout_marginRight="5dp"
+        android:max="3000"
+        android:paddingBottom="12dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvXMax"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seekBar1"
+        android:layout_alignParentRight="true"
+        android:text="Xmax"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tvYMax"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seekBar2"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="right"
+        android:text="YMax"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/nextCandle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnLayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Draw Next Candle"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:id="@+id/btnLayout"
+        android:layout_above="@id/adView">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            android:id="@+id/buyBtn"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/green"
+            android:textColor="@color/white"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sell"
+            android:id="@+id/sellBtn"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/red"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-2800990351363646/7599521363">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>

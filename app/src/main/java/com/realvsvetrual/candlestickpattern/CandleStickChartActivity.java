@@ -33,6 +33,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -64,7 +65,7 @@ public class CandleStickChartActivity extends AppCompatActivity {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
-                loadAds();
+//                loadAds();
             }
         });
         buy = findViewById(R.id.buyBtn);
@@ -160,8 +161,17 @@ public class CandleStickChartActivity extends AppCompatActivity {
 
         // setting data
         chart.getLegend().setEnabled(false);
-        main();
-        loadBannerAds();
+        listRaw();
+        CheckAds checkAds = new CheckAds(CandleStickChartActivity.this);
+        checkAds.checkAdsEnableStatus(new ApiCallback() {
+            @Override
+            public void onResponse(boolean success) {
+                if (success) {
+                    loadAds();
+                    loadBannerAds();
+                }
+            }
+        });
 
     }
     void loadBannerAds() {
@@ -229,19 +239,25 @@ public class CandleStickChartActivity extends AppCompatActivity {
             }
         });
     }
-    public void main()
-    {
+    public void listRaw(){
+        Field[] fields=R.raw.class.getFields();
+        for(int count=0; count < fields.length; count++){
+            Log.i("Raw Asset: ", fields[count].getName());
+        }
         Random r=new Random();
-        int randomNumber=r.nextInt(23);
-        openFile(randomNumber);
-    }
-    void openFile(int id){
-        Integer[] arr={R.raw.adaniport, R.raw.asianpaint, R.raw.bpcl, R.raw.cipla, R.raw.divislab, R.raw.grasim, R.raw.hcltech, R.raw.heromoto, R.raw.hindalco, R.raw.hul, R.raw.infy, R.raw.jswsteel, R.raw.ongc, R.raw.persistent, R.raw.reliance, R.raw.sbin, R.raw.tataconsumer, R.raw.tatamotor, R.raw.tatasteel, R.raw.techm, R.raw.titan, R.raw.ultratech, R.raw.upl};
-        InputStream inputStream = getResources().openRawResource(arr[id]);
-        CSVFile csvFile = new CSVFile(inputStream);
-        scoreList = csvFile.read();
-        drawcandlesticks(scoreList);
-        enableAutomatic();
+        int randomNumber=r.nextInt(fields.length);
+
+        InputStream inputStream = null;
+        try {
+            inputStream = getResources().openRawResource(fields[randomNumber].getInt(fields[randomNumber]));
+            CSVFile csvFile = new CSVFile(inputStream);
+            scoreList = csvFile.read();
+            drawFirst10Candle(scoreList);
+            drawcandlesticks(scoreList);
+            enableAutomatic();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     public void enableAutomatic() {
@@ -252,6 +268,28 @@ public class CandleStickChartActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(r, 5000);
+    }
+    void drawFirst10Candle(List scoreList) {
+        for (int j = 0; j<10;j++) {
+            String [] open = (String[]) scoreList.get(j+1);
+            values.add(new CandleEntry(j + 1,Float.parseFloat(open[3]),Float.parseFloat(open[4]),Float.parseFloat(open[2]),Float.parseFloat(open[7])));
+            CandleDataSet set1= new CandleDataSet(values,"Data Set");
+            set1.setDrawIcons(false);
+            set1.setDrawIcons(false);
+            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set1.setShadowColor(Color.DKGRAY);
+            set1.setShadowWidth(0.7f);
+            set1.setDecreasingColor(Color.RED);
+            set1.setDecreasingPaintStyle(Paint.Style.FILL);
+            set1.setIncreasingColor(Color.rgb(122, 242, 84));
+            set1.setIncreasingPaintStyle(Paint.Style.FILL);
+            set1.setNeutralColor(Color.BLUE);
+            CandleData data = new CandleData(set1);
+            chart.setData(data);
+            chart.invalidate();
+            i = j;
+        }
+
     }
     void drawcandlesticks(List scoreList) {
         if (i<scoreList.size()-1) {

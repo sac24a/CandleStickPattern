@@ -4,13 +4,13 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="16"
-6-->/Users/apple/Desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml
+6-->/Users/ITRENTALINDIA/Downloads/desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml
 7        android:targetSdkVersion="31" />
-7-->/Users/apple/Desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml
+7-->/Users/ITRENTALINDIA/Downloads/desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml
 8
 9    <application android:supportsRtl="true" >
-9-->/Users/apple/Desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml:3:3-5:17
-9-->/Users/apple/Desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml:3:16-42
+9-->/Users/ITRENTALINDIA/Downloads/desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml:3:3-5:17
+9-->/Users/ITRENTALINDIA/Downloads/desktop/CandleStickPattern/nativetemplates/src/main/AndroidManifest.xml:3:16-42
 10    </application>
 11
 12</manifest>

@@ -1,9 +1,11 @@
 package com.realvsvetrual.candlestickpattern;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabColorSchemeParams;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,7 +17,10 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -46,6 +51,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 
 import org.json.JSONArray;
@@ -53,7 +59,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView listView;
     ArrayList<String> titleList;
@@ -68,8 +74,10 @@ public class MainActivity2 extends AppCompatActivity {
     private RewardedAd mRewardedAd;
     private int positionSelected = 0;
     Button reload;
-    String currentVersion = "10";
+    String currentVersion = "12";
     Button switchOld;
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +90,14 @@ public class MainActivity2 extends AppCompatActivity {
             public void onInitializationComplete( InitializationStatus initializationStatus ) {
             }
         });
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_View);
+        navigationView.setNavigationItemSelectedListener(this);
         titleList = new ArrayList<>();
         detailsList = new ArrayList<>();
         urlList = new ArrayList<>();
@@ -123,7 +139,7 @@ public class MainActivity2 extends AppCompatActivity {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "CandleStick Chart Guide");
-                    String shareMessage= "\nHey I am makeing profit by learing from this application\n\n";
+                    String shareMessage= "\nHey I am making profit by learning from this application\n\n";
                     shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + com.google.android.datatransport.BuildConfig.APPLICATION_ID +"\n\n";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));
@@ -136,8 +152,8 @@ public class MainActivity2 extends AppCompatActivity {
         moreapps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity2.this,MoreApps.class);
-                startActivity(intent);
+                drawerLayout.openDrawer(Gravity.LEFT);
+
             }
         });
         reload.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +164,54 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
         checkVersion();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_oldapp:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                Intent intent3 = new Intent(MainActivity2.this,MainActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.nav_papertrading:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                Intent intent2 = new Intent(MainActivity2.this,CandleStickChartActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.nav_ipo:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                Intent intent = new Intent(MainActivity2.this,NewsList.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_share:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "CandleStick Chart Guide");
+                    String shareMessage= "\nHey I am making profit by learning from this application\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + com.google.android.datatransport.BuildConfig.APPLICATION_ID +"\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
+                break;
+            case R.id.nav_moreapp:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                Intent intent1 = new Intent(MainActivity2.this,MoreApps.class);
+                startActivity(intent1);
+                break;
+            default:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                return false;
+        }
+        return true;
     }
     public void checkVersion(){
 
@@ -169,6 +233,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 String version = jsonObject.getJSONObject(0).getString("version");
                                 progressBar.setVisibility(View.GONE);
                                 if (version.equals(currentVersion)){
+                                    progressBar.setVisibility(View.VISIBLE);
                                     getProduct("appversion");
                                 }
                                 else {
@@ -344,7 +409,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         try {
 
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
 
             String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
             Log.e("Response", url);
@@ -358,7 +423,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                                 JSONArray jsonObject = new JSONArray(response);
                                 String version = jsonObject.getJSONObject(0).getString("ads");
-                                progressBar.setVisibility(View.GONE);
+//                                progressBar.setVisibility(View.GONE);
                                 adType = version;
                                 if (version.equals("1")){
                                     MobileAds.initialize(MainActivity2.this, new OnInitializationCompleteListener() {
@@ -395,7 +460,7 @@ public class MainActivity2 extends AppCompatActivity {
                             }
                             catch (JSONException e) {
                                 Toast.makeText(MainActivity2.this,"Some error",Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
+//                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     },
@@ -404,7 +469,7 @@ public class MainActivity2 extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
 
 //                                Log.e("volley_error", error.toString());
-                            progressBar.setVisibility(View.GONE);
+//                            progressBar.setVisibility(View.GONE);
                         }
                     }
             ) ;
@@ -412,7 +477,7 @@ public class MainActivity2 extends AppCompatActivity {
         }
         catch (NullPointerException e) {
             Toast.makeText(MainActivity2.this,"Some fields are missing",Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
         }
 
     }

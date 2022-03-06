@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <item
+        android:id="@+id/nav_oldapp"
+        android:title="Switch to old App" />
+
+    <item
+        android:id="@+id/nav_papertrading"
+        android:title="Paper Trading" />
+
+    <item
+        android:id="@+id/nav_ipo"
+        android:title="IPO" />
+    <item
+        android:id="@+id/nav_share"
+        android:title="Share" />
+    <item
+        android:id="@+id/nav_moreapp"
+        android:title="More App" />
+
+</menu>

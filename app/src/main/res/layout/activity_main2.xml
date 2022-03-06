@@ -1,116 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/my_drawer_layout"
     tools:context=".MainActivity2">
-
     <RelativeLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ffffff"
-        android:translationZ="10dp">
-
+        android:layout_height="match_parent">
         <RelativeLayout
-            android:id="@+id/moreappLay"
-            android:layout_width="50dp"
+            android:id="@+id/header"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:visibility="visible">
+            android:background="#ffffff"
+            android:translationZ="10dp">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/moreapps"
-                android:backgroundTint="#14821A" />
-
-            <Button
-                android:id="@+id/moreApps"
+            <RelativeLayout
+                android:id="@+id/moreappLay"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/menu"
+                    android:backgroundTint="#14821A" />
+
+                <Button
+                    android:id="@+id/moreApps"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:background="@null" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@null" />
-        </RelativeLayout>
+                android:layout_toLeftOf="@id/paperLay"
+                android:layout_toRightOf="@id/moreappLay"
+                android:gravity="center"
+                android:text="Candlestick Chart Guide"
+                android:textColor="#DF441A"
+                android:textSize="18dp"
 
-        <TextView
-            android:id="@+id/title_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/paperLay"
-            android:layout_toRightOf="@id/moreappLay"
-            android:gravity="center"
-            android:text="Candlestick Chart Guide"
-            android:textColor="#DF441A"
-            android:textSize="18dp"
+                android:textStyle="bold" />
 
-            android:textStyle="bold" />
-
-        <RelativeLayout
-            android:id="@+id/paperLay"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/share">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/papertrading" />
-
-            <Button
-                android:id="@+id/reload"
+            <RelativeLayout
+                android:id="@+id/paperLay"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/share">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/papertrading" />
+
+                <Button
+                    android:id="@+id/reload"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:background="@null" />
+            </RelativeLayout>
+
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/share" />
+
+            <Button
+                android:id="@+id/share"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:background="@null" />
+
+
         </RelativeLayout>
 
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/share" />
-
         <Button
-            android:id="@+id/share"
-            android:layout_width="50dp"
+            android:id="@+id/switchToNewApp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@null" />
+            android:layout_below="@id/header"
+            android:background="@null"
+            android:text="Switch to Old App"
+            />
 
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/switchToNewApp" />
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar">
+
+        </ProgressBar>
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/switchToNewApp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/header"
-        android:background="@null"
-        android:text="Switch to Old App"
-        />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/switchToNewApp"
-        android:id="@+id/listView"/>
-
-    <ProgressBar
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/progressBar">
-
-    </ProgressBar>
-
-
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_View"
+        app:menu="@menu/navigation_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>

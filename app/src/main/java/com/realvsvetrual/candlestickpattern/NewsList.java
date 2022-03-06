@@ -60,7 +60,7 @@ public class NewsList extends AppCompatActivity {
     ArrayList<String> detailsList;
     ArrayList<String> urlList;
     ProgressBar progressBar ;
-
+    boolean isAdLoaded = false;
     TemplateView template;
     private boolean adLoaded=false;
     private AdLoader adLoader ;
@@ -87,7 +87,10 @@ public class NewsList extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(NewsList.this, MainActivity2.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                NewsList.this.finish();
             }
         });
         listView = findViewById(R.id.newlist);
@@ -97,50 +100,19 @@ public class NewsList extends AppCompatActivity {
                 data = detailsList.get(position);
                 title = titleList.get(position);
                 url = urlList.get(position);
-                if (isAdLoaded) {
-//                    mInterstitialAd.show();
-                }
-                else  {
-                    moveToNext(detailsList.get(position),titleList.get(position),urlList.get(position));
-                }
-
-
+                moveToNext(detailsList.get(position),titleList.get(position),urlList.get(position));
             }
         });
 
-
-
-        adLoader = new AdLoader.Builder(this, "ca-app-pub-2800990351363646/5280687581")
-                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
-                    private ColorDrawable background;
-                    @Override
-                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-
-                        unifiedNativeAdEx = unifiedNativeAd;
-                        adLoaded = true;
-
-
-                    }
-                })
-                .withAdListener(new AdListener() {
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError loadAdError) {
-                        super.onAdFailedToLoad(loadAdError);
-
-                    }
-                })
-                .withNativeAdOptions(new NativeAdOptions.Builder()
-                        .build())
-                .build();
-
-        AdRequest adRequest = new AdRequest.Builder().build() ;
-
-        // load Native Ad with the Request
-        adLoader.loadAd(adRequest) ;
-
         getProduct("ipo");
     }
-    boolean isAdLoaded = false;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity2.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        NewsList.this.finish();
+    }
 
     @Override
     protected void onResume() {

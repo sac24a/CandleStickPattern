@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/header"
-        android:background="@color/white"
+        android:background="#1C0C72"
         android:translationZ="10dp"
         >
         <Button
@@ -18,7 +18,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/back"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="#27AE60"
             android:gravity="start|center_vertical"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
@@ -32,16 +32,15 @@
             android:gravity="end|center_vertical"
             android:layout_alignParentRight="true"
             android:paddingEnd="10dp"
-            android:textColor="@color/green"/>
+            android:textColor="#27AE60"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Paper Trading"
-            android:textColor="@color/red"
-            android:textSize="20dp"
-            />
+            android:textColor="#F39C12"
+            android:textSize="20dp" />
 
     </RelativeLayout>
 

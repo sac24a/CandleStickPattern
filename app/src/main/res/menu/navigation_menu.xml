@@ -15,6 +15,9 @@
         android:id="@+id/nav_ipo"
         android:title="IPO" />
     <item
+        android:id="@+id/nav_analysis"
+        android:title="Analysis" />
+    <item
         android:id="@+id/nav_share"
         android:title="Share" />
     <item

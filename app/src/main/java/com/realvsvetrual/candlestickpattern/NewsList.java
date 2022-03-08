@@ -1,9 +1,13 @@
 package com.realvsvetrual.candlestickpattern;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabColorSchemeParams;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -34,16 +38,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 
 import org.json.JSONArray;
@@ -68,6 +75,8 @@ public class NewsList extends AppCompatActivity {
     NewsAdapter newsAdapter;
     private InterstitialAd mInterstitialAd;
     String data= ""; String title=""; String url="";
+    Boolean mcustomTabOpened = false;
+    Boolean mAdsStatus = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +112,16 @@ public class NewsList extends AppCompatActivity {
                 moveToNext(detailsList.get(position),titleList.get(position),urlList.get(position));
             }
         });
-
+        CheckAds checkAds = new CheckAds(NewsList.this);
+        checkAds.checkAdsEnableStatus(new ApiCallback() {
+            @Override
+            public void onResponse(boolean success) {
+                mAdsStatus = success;
+                if (mAdsStatus) {
+                    setupInteretialAds();
+                }
+            }
+        });
         getProduct("ipo");
     }
     @Override
@@ -117,13 +135,28 @@ public class NewsList extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (mcustomTabOpened) {
+            mcustomTabOpened = false;
+            if (isAdLoaded) {
+                showAds();
+            }
+            if (mAdsStatus) {
+                setupInteretialAds();
+            }
+        }
+    }
+    public void showAds (){
+        mInterstitialAd.show(NewsList.this);
     }
     public void moveToNext(String data, String title, String url) {
-        Intent intent = new Intent(NewsList.this,Detail.class);
-        intent.putExtra("data",data);
-        intent.putExtra("title",title);
-        intent.putExtra("url",url);
-        startActivity(intent);
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        int colorInt = Color.parseColor("#FF0000"); //red
+        CustomTabColorSchemeParams defaultColors = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(colorInt)
+                .build();
+        builder.setDefaultColorSchemeParams(defaultColors);
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(url));
     }
 
     class NewsAdapter extends BaseAdapter {
@@ -240,5 +273,55 @@ public class NewsList extends AppCompatActivity {
             Toast.makeText(NewsList.this,"",Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
         }
+    }
+    private void setupInteretialAds(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                this,
+                "ca-app-pub-2800990351363646/1416456621",
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        NewsList.this.mInterstitialAd = interstitialAd;
+                        isAdLoaded = true;
+                        progressBar.setVisibility(View.GONE);
+                        interstitialAd.setFullScreenContentCallback(
+                                new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when fullscreen content is dismissed.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        NewsList.this.mInterstitialAd = null;
+                                        Log.d("TAG", "The ad was dismissed.");
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                        // Called when fullscreen content failed to show.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        progressBar.setVisibility(View.GONE);
+                                        NewsList.this.mInterstitialAd = null;
+                                        Log.d("TAG", "The ad failed to show.");
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                        // Called when fullscreen content is shown.
+                                        Log.d("TAG", "The ad was shown.");
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
     }
 }

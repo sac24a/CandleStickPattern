@@ -9,11 +9,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#ffffff"
+            android:background="#1C0C72"
             android:translationZ="10dp">
 
             <RelativeLayout
@@ -27,7 +28,7 @@
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/menu"
-                    android:backgroundTint="#14821A" />
+                    android:backgroundTint="#27AE60" />
 
                 <Button
                     android:id="@+id/moreApps"
@@ -45,10 +46,10 @@
                 android:layout_toLeftOf="@id/paperLay"
                 android:layout_toRightOf="@id/moreappLay"
                 android:gravity="center"
-                android:text="Candlestick Chart Guide"
-                android:textColor="#DF441A"
-                android:textSize="18dp"
 
+                android:text="Candlestick Chart Guide"
+                android:textColor="#F39C12"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -79,7 +80,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/share" />
+                android:background="@drawable/share"
+                android:backgroundTint="#27AE60" />
 
             <Button
                 android:id="@+id/share"
@@ -99,13 +101,13 @@
             android:layout_below="@id/header"
             android:background="@null"
             android:text="Switch to Old App"
-            />
+            android:visibility="gone"/>
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/switchToNewApp" />
+            android:layout_below="@id/header" />
 
         <ProgressBar
             android:layout_width="wrap_content"

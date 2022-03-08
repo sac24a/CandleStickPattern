@@ -74,7 +74,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     private RewardedAd mRewardedAd;
     private int positionSelected = 0;
     Button reload;
-    String currentVersion = "12";
+    String currentVersion = "13";
     Button switchOld;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
@@ -187,6 +187,11 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 Intent intent = new Intent(MainActivity2.this,NewsList.class);
                 startActivity(intent);
+                break;
+            case R.id.nav_analysis:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                Intent intent4 = new Intent(MainActivity2.this,Analysis.class);
+                startActivity(intent4);
                 break;
             case R.id.nav_share:
                 drawerLayout.closeDrawer(Gravity.LEFT);

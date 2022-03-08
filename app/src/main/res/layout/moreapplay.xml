@@ -17,17 +17,17 @@
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             />
+
         <TextView
+            android:id="@+id/appName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:text="Music Player"
-            android:id="@+id/appName"
-            android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/appImage"
-            />
+            android:text="Music Player"
+            android:textColor="#1C0C72"
+            android:textSize="20dp" />
     </RelativeLayout>
 
 

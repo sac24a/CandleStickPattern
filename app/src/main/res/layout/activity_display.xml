@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:id="@+id/header"
         android:translationZ="10dp"
-        android:background="#ffffff"
+        android:background="#1C0C72"
 
         >
 
@@ -23,20 +23,19 @@
             android:text="Candlestick Chart Guide"
             android:gravity="center"
             android:layout_centerInParent="true"
-            android:textColor="#DF441A"
+            android:textColor="#F39C12"
             android:textSize="18dp"
             android:textStyle="bold"
 
             />
 
         <Button
+            android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/back"
             android:layout_centerVertical="true"
             android:background="@drawable/back"
-            android:backgroundTint="#14821A"
-            />
+            android:backgroundTint="#27AE60" />
 
 
     </RelativeLayout>

@@ -8,14 +8,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_candle_stick_chart.xml" value="0.1388343344473915" />
+        <entry key="app/src/main/res/layout/activity_analysis.xml" value="0.26927083333333335" />
+        <entry key="app/src/main/res/layout/activity_candle_stick_chart.xml" value="0.29569390937905804" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.26856884057971014" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.5190851008511321" />
+        <entry key="app/src/main/res/layout/activity_display.xml" value="0.3067708333333333" />
+        <entry key="app/src/main/res/layout/activity_fullscreen.xml" value="0.3067708333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24008540785298496" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2627479678144127" />
+        <entry key="app/src/main/res/layout/activity_more_apps.xml" value="0.3067708333333333" />
         <entry key="app/src/main/res/layout/activity_news_list.xml" value="0.26856884057971014" />
-        <entry key="app/src/main/res/layout/activity_profit_loss.xml" value="0.17604166666666668" />
+        <entry key="app/src/main/res/layout/activity_profit_loss.xml" value="0.34372714336212995" />
+        <entry key="app/src/main/res/layout/activity_zoom.xml" value="0.3067708333333333" />
+        <entry key="app/src/main/res/layout/gridlayout.xml" value="0.3067708333333333" />
+        <entry key="app/src/main/res/layout/moreapplay.xml" value="0.3067708333333333" />
         <entry key="app/src/main/res/layout/nativeadslayout.xml" value="0.26856884057971014" />
         <entry key="app/src/main/res/layout/newslistlayout.xml" value="0.26856884057971014" />
+        <entry key="app/src/main/res/layout/profit_loss_layout.xml" value="0.3067708333333333" />
+        <entry key="app/src/main/res/layout/zoom.xml" value="0.3067708333333333" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.3229166666666667" />
       </map>
     </option>

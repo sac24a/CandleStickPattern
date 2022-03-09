@@ -74,7 +74,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     private RewardedAd mRewardedAd;
     private int positionSelected = 0;
     Button reload;
-    String currentVersion = "13";
+    String currentVersion = "14";
     Button switchOld;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;

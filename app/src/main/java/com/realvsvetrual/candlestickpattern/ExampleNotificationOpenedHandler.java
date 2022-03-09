@@ -32,7 +32,7 @@ public class ExampleNotificationOpenedHandler implements OneSignal.OSNotificatio
                 mcontext.startActivity(intent);
             }
             else {
-                Intent intent = new Intent(mcontext,MainActivity2.class);
+                Intent intent = new Intent(mcontext,Analysis.class);
                 intent.putExtra("url",data.getString("launchURL"));
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);

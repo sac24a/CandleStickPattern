@@ -60,7 +60,6 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     ListView listView;
     ArrayList<String> titleList;
     ArrayList<String> detailsList;
@@ -78,7 +77,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     Button switchOld;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,15 +118,12 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 title = titleList.get(position);
                 url = urlList.get(position);
                 positionSelected = position;
-
                 if (isAdLoaded) {
                     showAds();
                 }
                 else  {
                     moveToNext(detailsList.get(position),titleList.get(position),urlList.get(position));
                 }
-
-
             }
         });
         Button share = findViewById(R.id.share);
@@ -140,7 +135,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "CandleStick Chart Guide");
                     String shareMessage= "\nHey I am making profit by learning from this application\n\n";
-                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + com.google.android.datatransport.BuildConfig.APPLICATION_ID +"\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));
                 } catch(Exception e) {
@@ -185,13 +180,27 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_ipo:
                 drawerLayout.closeDrawer(Gravity.LEFT);
-                Intent intent = new Intent(MainActivity2.this,NewsList.class);
+                Intent intent = new Intent(MainActivity2.this,Analysis.class);
+                intent.putExtra("position",1);
                 startActivity(intent);
                 break;
             case R.id.nav_analysis:
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 Intent intent4 = new Intent(MainActivity2.this,Analysis.class);
+                intent4.putExtra("position",0);
                 startActivity(intent4);
+                break;
+            case R.id.nav_dividend:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                Intent intentdiv = new Intent(MainActivity2.this,Analysis.class);
+                intentdiv.putExtra("position",2);
+                startActivity(intentdiv);
+                break;
+            case R.id.nav_bonus:
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                Intent intentbon = new Intent(MainActivity2.this,Analysis.class);
+                intentbon.putExtra("position",3);
+                startActivity(intentbon);
                 break;
             case R.id.nav_share:
                 drawerLayout.closeDrawer(Gravity.LEFT);
@@ -200,7 +209,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "CandleStick Chart Guide");
                     String shareMessage= "\nHey I am making profit by learning from this application\n\n";
-                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + com.google.android.datatransport.BuildConfig.APPLICATION_ID +"\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));
                 } catch(Exception e) {
@@ -219,11 +228,8 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         return true;
     }
     public void checkVersion(){
-
         try {
-
             progressBar.setVisibility(View.VISIBLE);
-
             String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=version";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -256,7 +262,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                                                     }
                                                 }
                                             });
-
                                     // Create the AlertDialog object and return it
                                     builder.create();
                                     builder.show();
@@ -271,8 +276,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
-//                                Log.e("volley_error", error.toString());
                             progressBar.setVisibility(View.GONE);
                         }
                     }
@@ -329,7 +332,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         }
         @Override
         public View getView(final int i, View view, ViewGroup viewGroup) {
-
             view = inflter.inflate(R.layout.newslistlayout, null); // inflate the layout
             TextView textView = view.findViewById(R.id.title);
             textView.setText(titleList.get(i));
@@ -350,18 +352,13 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     }
                 }
             });
-
-
             return view;
         }
-
     }
     public void getProduct (String name)
     {
         try {
-
             progressBar.setVisibility(View.VISIBLE);
-
             String url = "http://candlestickschart.com/api/webservice.php?service="+name;
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -401,9 +398,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     }
             ) ;
             Mysingleton.getInstance(getApplicationContext()).addToRequestque(postRequest);
-
-
-
         }
         catch (NullPointerException e) {
             Toast.makeText(MainActivity2.this,"",Toast.LENGTH_SHORT).show();
@@ -411,11 +405,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         }
     }
     public void checkAds(){
-
         try {
-
-//            progressBar.setVisibility(View.VISIBLE);
-
             String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -425,7 +415,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                             // response
                             Log.e("Responselogin", response);
                             try {
-
                                 JSONArray jsonObject = new JSONArray(response);
                                 String version = jsonObject.getJSONObject(0).getString("ads");
 //                                progressBar.setVisibility(View.GONE);
@@ -473,8 +462,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                         @Override
                         public void onErrorResponse(VolleyError error) {
 
-//                                Log.e("volley_error", error.toString());
-//                            progressBar.setVisibility(View.GONE);
                         }
                     }
             ) ;
@@ -487,12 +474,8 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
     }
     private void setupInteretialAds(){
-
-
 //        mInterstitialAd.setAdUnitId("ca-app-pub-2800990351363646/8341390809");
-//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");  //Test Ads
-
-
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");  Test Ads
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(
                 this,

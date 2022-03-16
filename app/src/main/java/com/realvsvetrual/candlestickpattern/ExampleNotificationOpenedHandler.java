@@ -26,14 +26,30 @@ public class ExampleNotificationOpenedHandler implements OneSignal.OSNotificatio
         try {
             String body = data.getString("body");
             if (body.contains("IPO")) {
-                Intent intent = new Intent(mcontext,NewsList.class);
+                Intent intent = new Intent(mcontext,Analysis.class);
                 intent.putExtra("url",data.getString("launchURL"));
+                intent.putExtra("position",1);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                mcontext.startActivity(intent);
+            }
+            else if (body.contains("Dividend")) {
+                Intent intent = new Intent(mcontext,Analysis.class);
+                intent.putExtra("url",data.getString("launchURL"));
+                intent.putExtra("position",2);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                mcontext.startActivity(intent);
+            }
+            else if (body.contains("Bonus") || body.contains("Split")) {
+                Intent intent = new Intent(mcontext,Analysis.class);
+                intent.putExtra("url",data.getString("launchURL"));
+                intent.putExtra("position",3);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);
             }
             else {
                 Intent intent = new Intent(mcontext,Analysis.class);
                 intent.putExtra("url",data.getString("launchURL"));
+                intent.putExtra("position",0);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);
             }

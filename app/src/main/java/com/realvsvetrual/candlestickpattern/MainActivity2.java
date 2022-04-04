@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -52,6 +53,11 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 import com.google.firebase.FirebaseApp;
 
 import org.json.JSONArray;
@@ -73,7 +79,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     private RewardedAd mRewardedAd;
     private int positionSelected = 0;
     Button reload;
-    String currentVersion = "14";
+    String currentVersion = "16";
     Button switchOld;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
@@ -159,6 +165,43 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             }
         });
         checkVersion();
+        UpdateApp();
+    }
+    public void UpdateApp(){
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener(result -> {
+
+            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+//                requestUpdate(result);
+                android.view.ContextThemeWrapper ctw = new android.view.ContextThemeWrapper(this,R.style.AlertDialog_AppCompat);
+                final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(ctw);
+                alertDialogBuilder.setTitle("Update Candlestick Pattern");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setIcon(R.drawable.googleplay);
+                alertDialogBuilder.setMessage("Candlestick Pattern recommends that you update to the latest version for a seamless & enhanced performance of the app.");
+                alertDialogBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        try{
+                            startActivity(new Intent("android.intent.action.VIEW", Uri.parse("market://details?id="+getPackageName())));
+                        }
+                        catch (ActivityNotFoundException e){
+                            startActivity(new Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName())));
+                        }
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("No Thanks",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                alertDialogBuilder.show();
+
+            } else {
+
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -230,7 +273,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     public void checkVersion(){
         try {
             progressBar.setVisibility(View.VISIBLE);
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=version";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=version";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -359,7 +402,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     {
         try {
             progressBar.setVisibility(View.VISIBLE);
-            String url = "http://candlestickschart.com/api/webservice.php?service="+name;
+            String url = "https://candlestickschart.com/api/webservice.php?service="+name;
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -406,7 +449,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     }
     public void checkAds(){
         try {
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){

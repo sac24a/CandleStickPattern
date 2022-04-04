@@ -18,7 +18,7 @@ public class ApiCall {
     }
     public void getAnalysisData(final Callback callback) {
         try {
-            String url = "http://candlestickschart.com/api/webservice.php?service=analysis";
+            String url = "https://candlestickschart.com/api/webservice.php?service=analysis";
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
                         @Override
@@ -41,7 +41,7 @@ public class ApiCall {
     }
     public void getIPOData(final Callback callback) {
         try {
-            String url = "http://candlestickschart.com/api/webservice.php?service=ipo";
+            String url = "https://candlestickschart.com/api/webservice.php?service=ipo";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -64,7 +64,7 @@ public class ApiCall {
     }
     public void getDividendData(final Callback callback) {
         try {
-            String url = "http://candlestickschart.com/api/webservice.php?service=dividend";
+            String url = "https://candlestickschart.com/api/webservice.php?service=dividend";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -87,7 +87,7 @@ public class ApiCall {
     }
     public void getBonusSplitData(final Callback callback) {
         try {
-            String url = "http://candlestickschart.com/api/webservice.php?service=bonus";
+            String url = "https://candlestickschart.com/api/webservice.php?service=bonus";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){

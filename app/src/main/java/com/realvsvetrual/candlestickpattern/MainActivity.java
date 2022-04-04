@@ -70,7 +70,7 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    String currentVersion = "14";
+    String currentVersion = "16";
     Button intro;
     Button exerciseButton;
     Button tradingButton;
@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -566,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=version";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=version";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -855,7 +855,7 @@ public class MainActivity extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=get";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=get";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){

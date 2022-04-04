@@ -20,7 +20,7 @@ public class CheckAds {
     }
     public void checkAdsEnableStatus(final ApiCallback callback) {
         try {
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -68,7 +68,7 @@ public class CheckAds {
 
 //            progressBar.setVisibility(View.VISIBLE);
 
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=papertradingversion";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=papertradingversion";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){

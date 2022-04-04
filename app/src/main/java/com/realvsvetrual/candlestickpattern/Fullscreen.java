@@ -184,7 +184,7 @@ public class Fullscreen extends AppCompatActivity  {
     public void checkAds(){
 
         try {
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){

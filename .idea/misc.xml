@@ -8,6 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.19722222222222222" />
         <entry key="app/src/main/res/layout/activity_analysis.xml" value="0.26927083333333335" />
         <entry key="app/src/main/res/layout/activity_candle_stick_chart.xml" value="0.29569390937905804" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.26856884057971014" />

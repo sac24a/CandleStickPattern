@@ -226,7 +226,7 @@ public class NewsList extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            String url = "http://candlestickschart.com/api/webservice.php?service="+name;
+            String url = "https://candlestickschart.com/api/webservice.php?service="+name;
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){

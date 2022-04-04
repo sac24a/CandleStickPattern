@@ -138,7 +138,7 @@ public class MoreApps extends AppCompatActivity {
     public void checkAds(){
 
         try {
-            String url = "http://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
+            String url = "https://candlestickschart.com/api/Candlestick/getReq.php?service=ads";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -188,7 +188,7 @@ public class MoreApps extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            String url = "http://candlestickschart.com/api/Candlestick/moreapp.php?service=get";
+            String url = "https://candlestickschart.com/api/Candlestick/moreapp.php?service=get";
             Log.e("Response", url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>(){
@@ -217,7 +217,7 @@ public class MoreApps extends AppCompatActivity {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                         try {
-                                            Uri uri = Uri.parse(moreAppData.get(position).url); // missing 'http://' will cause crashed
+                                            Uri uri = Uri.parse(moreAppData.get(position).url); // missing 'https://' will cause crashed
                                             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                                             startActivity(intent);
                                         } catch(Exception e) {

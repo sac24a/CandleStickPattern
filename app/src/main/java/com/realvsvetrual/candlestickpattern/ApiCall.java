@@ -108,4 +108,27 @@ public class ApiCall {
         catch (NullPointerException e) {
         }
     }
+    public void getNewsData(final Callback callback) {
+        try {
+            String url = "https://candlestickschart.com/api/webservice.php?service=news";
+            Log.e("Response", url);
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>(){
+                        @Override
+                        public void onResponse(String response) {
+                            callback.onResponse(response);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    }
+            ) ;
+            Mysingleton.getInstance(mcontext).addToRequestque(postRequest);
+        }
+        catch (NullPointerException e) {
+        }
+    }
 }

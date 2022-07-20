@@ -9,7 +9,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.19722222222222222" />
-        <entry key="app/src/main/res/layout/activity_analysis.xml" value="0.26927083333333335" />
+        <entry key="app/src/main/res/layout/activity_analysis.xml" value="0.19817352294921875" />
         <entry key="app/src/main/res/layout/activity_candle_stick_chart.xml" value="0.29569390937905804" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.26856884057971014" />
         <entry key="app/src/main/res/layout/activity_display.xml" value="0.3067708333333333" />
@@ -23,7 +23,7 @@
         <entry key="app/src/main/res/layout/gridlayout.xml" value="0.3067708333333333" />
         <entry key="app/src/main/res/layout/moreapplay.xml" value="0.3067708333333333" />
         <entry key="app/src/main/res/layout/nativeadslayout.xml" value="0.26856884057971014" />
-        <entry key="app/src/main/res/layout/news_layout.xml" value="0.28804347826086957" />
+        <entry key="app/src/main/res/layout/news_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/newslistlayout.xml" value="0.26856884057971014" />
         <entry key="app/src/main/res/layout/pager_layout.xml" value="0.28804347826086957" />
         <entry key="app/src/main/res/layout/profit_loss_layout.xml" value="0.3067708333333333" />

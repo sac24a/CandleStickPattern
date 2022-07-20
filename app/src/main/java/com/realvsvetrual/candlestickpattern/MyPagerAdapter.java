@@ -34,7 +34,7 @@ public class MyPagerAdapter extends PagerAdapter {
     }
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
@@ -197,6 +197,42 @@ public class MyPagerAdapter extends PagerAdapter {
                     }
                 });
                 break;
+            case 4:
+                apiCall.getNewsData(new Callback() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            ArrayList<ApiData> apiData = new ArrayList<>();
+                            for(int i =0;i<jsonArray.length();i++) {
+                                apiData.add(new ApiData(jsonArray.getJSONObject(i).getInt("ID"),jsonArray.getJSONObject(i).getString("Title"),jsonArray.getJSONObject(i).getString("Url"),jsonArray.getJSONObject(i).getString("Date")));
+                            }
+                            NewsAdapterNew newsAdapter = new NewsAdapterNew(mcontext,apiData);
+                            listView.setAdapter(newsAdapter);
+                            progressBar.setVisibility(View.GONE);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    analysis.mcustomTabOpened = true;
+                                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                                    int colorInt = Color.parseColor("#FF0000"); //red
+                                    CustomTabColorSchemeParams defaultColors = new CustomTabColorSchemeParams.Builder()
+                                            .setToolbarColor(colorInt)
+                                            .build();
+                                    builder.setCloseButtonIcon(BitmapFactory.decodeResource(mcontext.getResources(), R.drawable.ic_launcher_background));
+                                    builder.setDefaultColorSchemeParams(defaultColors);
+                                    CustomTabsIntent customTabsIntent = builder.build();
+                                    customTabsIntent.launchUrl(mcontext, Uri.parse(apiData.get(i).url));
+                                }
+                            });
+
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                break;
         }
         container.addView(viewGroup);
         return viewGroup;
@@ -219,6 +255,8 @@ public class MyPagerAdapter extends PagerAdapter {
                 return "Dividend";
             case 3:
                 return "Bonus/Split";
+            case 4:
+                return "News";
             default:
                 return "";
         }

@@ -46,10 +46,17 @@ public class ExampleNotificationOpenedHandler implements OneSignal.OSNotificatio
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);
             }
-            else {
+            else if (body.contains("Prediction")){
                 Intent intent = new Intent(mcontext,Analysis.class);
                 intent.putExtra("url",data.getString("launchURL"));
                 intent.putExtra("position",0);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                mcontext.startActivity(intent);
+            }
+            else  {
+                Intent intent = new Intent(mcontext,Analysis.class);
+                intent.putExtra("url",data.getString("launchURL"));
+                intent.putExtra("position",4);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);
             }

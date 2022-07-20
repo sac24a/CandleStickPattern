@@ -38,19 +38,20 @@
 
 
     </RelativeLayout>
+
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:id="@+id/viewPager">
+        android:layout_below="@id/header">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable"
-            app:tabTextColor="#873600"
             app:tabSelectedTextColor="#283747"
-            />
+            app:tabTextColor="#873600" />
 
     </androidx.viewpager.widget.ViewPager>
 

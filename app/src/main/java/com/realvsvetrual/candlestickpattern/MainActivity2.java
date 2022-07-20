@@ -125,7 +125,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 url = urlList.get(position);
                 positionSelected = position;
                 if (isAdLoaded) {
-                    showAds();
+                    showAds(position);
                 }
                 else  {
                     moveToNext(detailsList.get(position),titleList.get(position),urlList.get(position));
@@ -338,14 +338,22 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         checkAds();
     }
     public void moveToNext(String data, String title, String url) {
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        int colorInt = Color.parseColor("#FF0000"); //red
-        CustomTabColorSchemeParams defaultColors = new CustomTabColorSchemeParams.Builder()
-                .setToolbarColor(colorInt)
-                .build();
-        builder.setDefaultColorSchemeParams(defaultColors);
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(this, Uri.parse(url));
+        try {
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            int colorInt = Color.parseColor("#FF0000"); //red
+            CustomTabColorSchemeParams defaultColors = new CustomTabColorSchemeParams.Builder()
+                    .setToolbarColor(colorInt)
+                    .build();
+            builder.setDefaultColorSchemeParams(defaultColors);
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+        }
+        catch (ActivityNotFoundException e) {
+            Intent intent = new Intent(MainActivity2.this,Detail.class);
+            intent.putExtra("title",title);
+            intent.putExtra("url",url);
+        }
+
     }
     class NewsAdapter extends BaseAdapter {
         Context context;
@@ -603,19 +611,25 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     });
         }
     }
-    public void showAds (){
-        if (adType.equals("1")) {
-            mInterstitialAd.show(MainActivity2.this);
+    public void showAds (Integer position){
+        try {
+            if (adType.equals("1")) {
+                mInterstitialAd.show(MainActivity2.this);
+            }
+            else if (adType.equals("2")) {
+                showRewardedVideo();
+            }
+            else if(adType.equals("3")) {
+                mInterstitialAd.show(MainActivity2.this);
+            }
+            else if(adType.equals("4")) {
+                showRewardedVideo();
+            }
         }
-        else if (adType.equals("2")) {
-            showRewardedVideo();
+        catch (NullPointerException e) {
+            moveToNext(detailsList.get(position),titleList.get(position),urlList.get(position));
         }
-        else if(adType.equals("3")) {
-            mInterstitialAd.show(MainActivity2.this);
-        }
-        else if(adType.equals("4")) {
-            showRewardedVideo();
-        }
+
     }
     private void showRewardedVideo() {
 

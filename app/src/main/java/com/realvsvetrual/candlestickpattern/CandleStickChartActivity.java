@@ -270,25 +270,31 @@ public class CandleStickChartActivity extends AppCompatActivity {
         handler.postDelayed(r, 5000);
     }
     void drawFirst10Candle(List scoreList) {
-        for (int j = 0; j<10;j++) {
-            String [] open = (String[]) scoreList.get(j+1);
-            values.add(new CandleEntry(j + 1,Float.parseFloat(open[3]),Float.parseFloat(open[4]),Float.parseFloat(open[2]),Float.parseFloat(open[7])));
-            CandleDataSet set1= new CandleDataSet(values,"Data Set");
-            set1.setDrawIcons(false);
-            set1.setDrawIcons(false);
-            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setShadowColor(Color.DKGRAY);
-            set1.setShadowWidth(0.7f);
-            set1.setDecreasingColor(Color.RED);
-            set1.setDecreasingPaintStyle(Paint.Style.FILL);
-            set1.setIncreasingColor(Color.rgb(122, 242, 84));
-            set1.setIncreasingPaintStyle(Paint.Style.FILL);
-            set1.setNeutralColor(Color.BLUE);
-            CandleData data = new CandleData(set1);
-            chart.setData(data);
-            chart.invalidate();
-            i = j;
+        try {
+            for (int j = 0; j<10;j++) {
+                String [] open = (String[]) scoreList.get(j+1);
+                values.add(new CandleEntry(j + 1,Float.parseFloat(open[3]),Float.parseFloat(open[4]),Float.parseFloat(open[2]),Float.parseFloat(open[7])));
+                CandleDataSet set1= new CandleDataSet(values,"Data Set");
+                set1.setDrawIcons(false);
+                set1.setDrawIcons(false);
+                set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+                set1.setShadowColor(Color.DKGRAY);
+                set1.setShadowWidth(0.7f);
+                set1.setDecreasingColor(Color.RED);
+                set1.setDecreasingPaintStyle(Paint.Style.FILL);
+                set1.setIncreasingColor(Color.rgb(122, 242, 84));
+                set1.setIncreasingPaintStyle(Paint.Style.FILL);
+                set1.setNeutralColor(Color.BLUE);
+                CandleData data = new CandleData(set1);
+                chart.setData(data);
+                chart.invalidate();
+                i = j;
+            }
         }
+        catch (ArrayIndexOutOfBoundsException e) {
+            Toast.makeText(CandleStickChartActivity.this,"Unable to draw the chart for the selected stock",Toast.LENGTH_SHORT).show();
+        }
+
 
     }
     void drawcandlesticks(List scoreList) {

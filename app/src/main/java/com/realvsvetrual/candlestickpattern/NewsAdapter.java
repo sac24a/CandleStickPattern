@@ -37,8 +37,9 @@ class NewsAdapterNew extends BaseAdapter {
         view = inflter.inflate(R.layout.news_layout, null);
         TextView newsTitle = view.findViewById(R.id.newsTitle);
         TextView newsDate = view.findViewById(R.id.newsDate);
-        newsTitle.setText(String.format(titleList.get(i).title));
-        newsDate.setText(String.format(titleList.get(i).date));
+
+        newsTitle.setText(String.valueOf(titleList.get(i).title));
+        newsDate.setText(String.valueOf(titleList.get(i).date));
         return view;
     }
 }
